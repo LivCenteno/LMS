@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const knex = require("./api/models/connection_db");
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const knex = require("./api/models/connection_db");
-
+//Code for connecting to the database
 knex
   .raw("SELECT 1")
   .then(() => {
@@ -18,6 +18,12 @@ knex
     console.error("Database connection failed:", err.message);
   });
 
+const userRouter = require("./api/userRouter");
+
+// Configuration of Routers.
+app.use("/user", userRouter);
+
+//Header Settings
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
