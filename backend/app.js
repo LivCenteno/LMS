@@ -18,10 +18,12 @@ knex
     console.error("Database connection failed:", err.message);
   });
 
-const userRouter = require("./api/userRouter");
+const userRouter = require("./api/routers/userRouter");
+const categoryRouter = require("./api/routers/categoryRouter");
 
 // Configuration of Routers.
 app.use("/user", userRouter);
+app.use("/category", categoryRouter);
 
 //Header Settings
 app.use((req, res, next) => {
