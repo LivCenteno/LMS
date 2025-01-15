@@ -53,15 +53,6 @@ const checkUserInputs = (
   email,
   password
 ) => {
-  console.log(
-    role,
-    firstName,
-    middleInitial,
-    lastName,
-    suffix,
-    email,
-    password
-  );
   if (!checkRole(role)) {
     return "Invalid role";
   } else if (
