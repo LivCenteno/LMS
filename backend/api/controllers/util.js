@@ -73,16 +73,6 @@ const checkUserInputs = (
   return null; // All validations passed
 };
 
-const checkroleinput = (role) => {
-  console.log(role);
-  if (!checkRole(role)) {
-    return "Invalid role";
-  }
-
-  return null; // All validations passed
-};
-
 module.exports = {
   checkUserInputs,
-  checkroleinput,
 };

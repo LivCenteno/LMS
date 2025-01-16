@@ -60,4 +60,42 @@ const createUser = async (req, res, next) => {
   }
 };
 
-module.exports = { createUser };
+const viewUserViaId = async (req, res, next) => {
+  let id = req.params.id;
+
+  if (!id) {
+    return res.status(404).json({
+      successful: false,
+      message: "Id is missing",
+    });
+  } else {
+    try {
+      const doesIdExist = await knex("user").where("id", id).first();
+
+      if (!doesIdExist) {
+        return res.status(404).json({
+          successful: false,
+          message: "User Does Not Exist",
+        });
+      } else {
+        const data = await knex("user").where("id", id);
+
+        return res.status(200).json({
+          successful: true,
+          message: "User Successfully Retrieved",
+          data: data,
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({
+        successful: false,
+        message: err,
+      });
+    }
+  }
+};
+
+module.exports = {
+  createUser,
+  viewUserViaId,
+};
